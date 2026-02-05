@@ -1,125 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Valentine 💕</title>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-  body {
-    margin: 0;
-    height: 100vh;
-    background: linear-gradient(135deg, #7a0019, #b3002d);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-  }
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle, #7a001f, #3a000f);
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
 
-  .card {
-    background: rgba(0,0,0,0.25);
-    padding: 30px;
-    border-radius: 20px;
-    text-align: center;
-    color: white;
-    width: 280px;
-  }
+.card {
+  background: rgba(0,0,0,0.3);
+  padding: 25px;
+  border-radius: 18px;
+  text-align: center;
+  width: 90%;
+  max-width: 340px;
+  box-shadow: 0 0 40px rgba(255,0,100,0.4);
+}
 
-  h2 {
-    margin-bottom: 20px;
-  }
+button {
+  border: none;
+  padding: 12px 22px;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+}
 
-  .buttons {
-    position: relative;
-    height: 120px;
-  }
+#yesBtn {
+  background: #ff4d6d;
+  color: white;
+}
 
-  button {
-    padding: 12px 20px;
-    border-radius: 25px;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-  }
+#noBtn {
+  background: #444;
+  color: white;
+  position: absolute;
+}
 
-  #yesBtn {
-    background: #ff4d88;
-    color: white;
-  }
+.hidden {
+  display: none;
+}
 
-  #noBtn {
-    background: #444;
-    color: white;
-    position: absolute;
-    left: 50%;
-    top: 60px;
-    transform: translateX(-50%);
-  }
+img {
+  width: 100%;
+  border-radius: 18px;
+  margin-top: 15px;
+  opacity: 0;
+  animation: fadeIn 3s forwards;
+  box-shadow: 0 0 30px rgba(255,100,150,0.7);
+}
 
-  .hidden {
-    display: none;
-  }
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
 
-  .photo {
-    width: 200px;
-    border-radius: 20px;
-    margin-top: 15px;
-  }
+.heart {
+  position: fixed;
+  color: pink;
+  font-size: 20px;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  from { transform: translateY(-10vh); }
+  to { transform: translateY(110vh); }
+}
 </style>
 </head>
 
 <body>
 
-<!-- AUDIO -->
-<audio id="music" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
-
-<div class="card" id="card">
-  <h2>
-    Will you be my Valentine? 🤍
-  </h2>
-
-  <div class="buttons">
-    <button id="yesBtn">YES 💕</button>
-    <button id="noBtn">NO 😂</button>
-  </div>
+<div class="card" id="question">
+  <h2>Will you be my Valentine? 🤍</h2>
+  <button id="yesBtn">YES 💕</button>
+  <button id="noBtn">NO 😂</button>
 </div>
 
-<div class="card hidden" id="result">
-  <h2>Yayyy 💖</h2>
-  <p>
-    You make my life beautiful shonnea 🤍😽
-  </p>
-
-  <!-- EDIT HERE 👇 photo file name -->
-  <img src="her.jpg" class="photo" />
+<div class="card hidden" id="love">
+  <h1>Yayyyy 💖✨</h1>
+  <p id="typing"></p>
+  <img src="photo.jpg" alt="Her photo">
+  <p id="secret" class="hidden">There’s something I never told you…  
+  <br><b>You’re my safe place 🤍</b></p>
+  <button onclick="reveal()">Tap me 💌</button>
 </div>
+
+<audio id="music" src="music.mp3" loop></audio>
+<audio id="beat" src="https://www.soundjay.com/heartbeat/heartbeat-01.mp3"></audio>
 
 <script>
-  const noBtn = document.getElementById("noBtn");
-  const yesBtn = document.getElementById("yesBtn");
-  const card = document.getElementById("card");
-  const result = document.getElementById("result");
-  const music = document.getElementById("music");
+const HER_NAME = "Shonnea 🤍😽";
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const question = document.getElementById("question");
+const love = document.getElementById("love");
+const typing = document.getElementById("typing");
+const music = document.getElementById("music");
+const beat = document.getElementById("beat");
 
-  // NO button runaway (mobile friendly)
-  function moveNo() {
-    const x = Math.random() * 200 - 100;
-    const y = Math.random() * 80 - 40;
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
-  }
+let noScale = 1;
 
-  noBtn.addEventListener("touchstart", moveNo);
-  noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("click", moveNo);
 
-  // YES click
-  yesBtn.addEventListener("click", () => {
-    card.classList.add("hidden");
-    result.classList.remove("hidden");
-    music.play();
-  });
+function moveNo() {
+  noScale -= 0.1;
+  noBtn.style.transform = `scale(${noScale})`;
+  noBtn.style.left = Math.random() * 80 + "%";
+  noBtn.style.top = Math.random() * 80 + "%";
+  noBtn.innerText = ["Nice try 😏","Almost 😂","Try again 😜"][Math.floor(Math.random()*3)];
+}
+
+yesBtn.onclick = () => {
+  beat.play();
+  music.play();
+  question.classList.add("hidden");
+  love.classList.remove("hidden");
+  startTyping();
+  startHearts();
+};
+
+function startTyping() {
+  const hour = new Date().getHours();
+  let greeting = hour < 6 ? "You should be sleeping 😴" :
+                 hour < 12 ? "Good morning ☀️" :
+                 hour < 18 ? "Good evening 🌸" :
+                 "Late night thoughts 🤍";
+
+  const text = `${greeting}\nYou make my life beautiful ${HER_NAME}`;
+  let i = 0;
+  const interval = setInterval(() => {
+    typing.innerText += text.charAt(i);
+    i++;
+    if (i >= text.length) clearInterval(interval);
+  }, 50);
+}
+
+function startHearts() {
+  setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "💕";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = (3 + Math.random() * 3) + "s";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 6000);
+  }, 300);
+}
+
+document.addEventListener("click", e => {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "💖";
+  h.style.left = e.clientX + "px";
+  h.style.top = e.clientY + "px";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 2000);
+});
+
+function reveal() {
+  document.getElementById("secret").classList.remove("hidden");
+}
 </script>
 
 </body>
