@@ -10,7 +10,7 @@ body {
   margin: 0;
   height: 100vh;
   background: radial-gradient(circle, #7a001f, #3a000f);
-  font-family: 'Arial', sans-serif;
+  font-family: Arial, sans-serif;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -19,22 +19,32 @@ body {
 }
 
 .card {
-  background: rgba(0,0,0,0.3);
-  padding: 25px;
-  border-radius: 18px;
+  background: rgba(0,0,0,0.35);
+  padding: 28px;
+  border-radius: 20px;
   text-align: center;
   width: 90%;
-  max-width: 340px;
+  max-width: 360px;
   box-shadow: 0 0 40px rgba(255,0,100,0.4);
+}
+
+h1,h2 {
+  margin-bottom: 18px;
+}
+
+.note {
+  margin-top: 20px;
+  line-height: 1.9;
+  font-size: 16px;
 }
 
 button {
   border: none;
-  padding: 12px 22px;
-  border-radius: 25px;
+  padding: 12px 24px;
+  border-radius: 30px;
   font-size: 16px;
   cursor: pointer;
-  margin: 10px;
+  margin: 12px;
 }
 
 #yesBtn {
@@ -55,7 +65,7 @@ button {
 img {
   width: 100%;
   border-radius: 18px;
-  margin-top: 15px;
+  margin: 25px 0;
   opacity: 0;
   animation: fadeIn 3s forwards;
   box-shadow: 0 0 30px rgba(255,100,150,0.7);
@@ -67,7 +77,6 @@ img {
 
 .heart {
   position: fixed;
-  color: pink;
   font-size: 20px;
   animation: fall linear infinite;
 }
@@ -81,26 +90,37 @@ img {
 
 <body>
 
+<!-- QUESTION CARD -->
 <div class="card" id="question">
   <h2>Will you be my Valentine? 🤍</h2>
   <button id="yesBtn">YES 💕</button>
   <button id="noBtn">NO 😂</button>
 </div>
 
+<!-- LOVE CARD -->
 <div class="card hidden" id="love">
   <h1>Yayyyy 💖✨</h1>
-  <p id="typing"></p>
+
+  <div class="note" id="typing"></div>
+
   <img src="her.jpg" alt="Her photo">
-  <p id="secret" class="hidden">There’s something I never told you…  
-  <br><b>You’re my safe place 🤍</b></p>
-  <button onclick="reveal()">Tap me 💌</button>
+
+  <div class="note hidden" id="secret">
+    There’s something I never told you…
+    <br><br>
+    <b>You’re my safe place 🤍</b>
+  </div>
+
+  <button onclick="reveal()">Tap more 💌</button>
 </div>
 
+<!-- AUDIO -->
 <audio id="music" src="music.mp3" loop></audio>
 <audio id="beat" src="https://www.soundjay.com/heartbeat/heartbeat-01.mp3"></audio>
 
 <script>
 const HER_NAME = "Shonnea 🤍😽";
+
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const question = document.getElementById("question");
@@ -111,6 +131,7 @@ const beat = document.getElementById("beat");
 
 let noScale = 1;
 
+// NO button escape 😂
 noBtn.addEventListener("mouseover", moveNo);
 noBtn.addEventListener("click", moveNo);
 
@@ -122,6 +143,7 @@ function moveNo() {
   noBtn.innerText = ["Nice try 😏","Almost 😂","Try again 😜"][Math.floor(Math.random()*3)];
 }
 
+// YES click
 yesBtn.onclick = () => {
   beat.play();
   music.play();
@@ -131,15 +153,12 @@ yesBtn.onclick = () => {
   startHearts();
 };
 
+// Typing text (clean)
 function startTyping() {
-  const hour = new Date().getHours();
-  let greeting = hour < 6 ? "You should be sleeping 😴" :
-                 hour < 12 ? "Good morning ☀️" :
-                 hour < 18 ? "Good evening 🌸" :
-                 "Late night thoughts 🤍";
-
-  const text = `${greeting}\nYou make my life beautiful ${HER_NAME}`;
+  const text = `You make my life beautiful,\n\n${HER_NAME}`;
   let i = 0;
+  typing.innerText = "";
+
   const interval = setInterval(() => {
     typing.innerText += text.charAt(i);
     i++;
@@ -147,6 +166,7 @@ function startTyping() {
   }, 50);
 }
 
+// Hearts rain
 function startHearts() {
   setInterval(() => {
     const h = document.createElement("div");
@@ -159,16 +179,7 @@ function startHearts() {
   }, 300);
 }
 
-document.addEventListener("click", e => {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.innerHTML = "💖";
-  h.style.left = e.clientX + "px";
-  h.style.top = e.clientY + "px";
-  document.body.appendChild(h);
-  setTimeout(() => h.remove(), 2000);
-});
-
+// Tap reveal
 function reveal() {
   document.getElementById("secret").classList.remove("hidden");
 }
