@@ -1,178 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>For You ❤️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>For You ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: radial-gradient(circle, #7a001f, #3a000f);
-  font-family: 'Arial', sans-serif;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-}
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #5b000f, #8b0018);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: white;
+      text-align: center;
+    }
 
-.card {
-  background: rgba(0,0,0,0.3);
-  padding: 25px;
-  border-radius: 18px;
-  text-align: center;
-  width: 90%;
-  max-width: 340px;
-  box-shadow: 0 0 40px rgba(255,0,100,0.4);
-}
+    .card {
+      background: rgba(0, 0, 0, 0.25);
+      padding: 30px 25px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 350px;
+      box-shadow: 0 0 30px rgba(255, 0, 80, 0.4);
+    }
 
-button {
-  border: none;
-  padding: 12px 22px;
-  border-radius: 25px;
-  font-size: 16px;
-  cursor: pointer;
-  margin: 10px;
-}
+    h1 {
+      margin-bottom: 15px;
+      font-size: 32px;
+    }
 
-#yesBtn {
-  background: #ff4d6d;
-  color: white;
-}
+    .note {
+      margin-top: 20px;
+      line-height: 1.8;
+      font-size: 16px;
+    }
 
-#noBtn {
-  background: #444;
-  color: white;
-  position: absolute;
-}
+    img {
+      width: 100%;
+      border-radius: 18px;
+      margin: 25px 0;
+    }
 
-.hidden {
-  display: none;
-}
+    button {
+      margin-top: 25px;
+      padding: 12px 26px;
+      font-size: 16px;
+      border: none;
+      border-radius: 30px;
+      background: #ff4d6d;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-img {
-  width: 100%;
-  border-radius: 18px;
-  margin-top: 15px;
-  opacity: 0;
-  animation: fadeIn 3s forwards;
-  box-shadow: 0 0 30px rgba(255,100,150,0.7);
-}
+    button:hover {
+      transform: scale(1.08);
+    }
 
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
+    .heart {
+      position: fixed;
+      top: -10px;
+      font-size: 22px;
+      animation: fall linear forwards;
+    }
 
-.heart {
-  position: fixed;
-  color: pink;
-  font-size: 20px;
-  animation: fall linear infinite;
-}
-
-@keyframes fall {
-  from { transform: translateY(-10vh); }
-  to { transform: translateY(110vh); }
-}
-</style>
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="card" id="question">
-  <h2>Will you be my Valentine? 🤍</h2>
-  <button id="yesBtn">YES 💕</button>
-  <button id="noBtn">NO 😂</button>
-</div>
+  <!-- Background Music -->
+  <audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
 
-<div class="card hidden" id="love">
-  <h1>Yayyyy 💖✨</h1>
-  <p id="typing"></p>
-  <img src="her.jpg" alt="Her photo">
-  <p id="secret" class="hidden">There’s something I never told you…  
-  <br><b>You’re my safe place 🤍</b></p>
-  <button onclick="reveal()">Tap me 💌</button>
-</div>
+  <div class="card">
+    <h1>Yayyyy 💖✨</h1>
 
-<audio id="music" src="music.mp3" loop></audio>
-<audio id="beat" src="https://www.soundjay.com/heartbeat/heartbeat-01.mp3"></audio>
+    <div class="note">
+      Latenightthoughts 🤍  
+      <br><br>
+      You make my life beautiful, <b>Shonnea</b> 🤍😽  
+      <br><br>
+      There’s something I never told you…
+      <br><br>
+      <b>You’re my safe place 🤍</b>
+    </div>
 
-<script>
-const HER_NAME = "Shonnea 🤍😽";
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const question = document.getElementById("question");
-const love = document.getElementById("love");
-const typing = document.getElementById("typing");
-const music = document.getElementById("music");
-const beat = document.getElementById("beat");
+    <!-- HER PHOTO -->
+    <img src="her.jpg" alt="Her Photo">
 
-let noScale = 1;
+    <button onclick="tapLove()">Tap me 💌</button>
+  </div>
 
-noBtn.addEventListener("mouseover", moveNo);
-noBtn.addEventListener("click", moveNo);
+  <script>
+    function tapLove() {
+      document.getElementById("music").play();
+      rainHearts();
+    }
 
-function moveNo() {
-  noScale -= 0.1;
-  noBtn.style.transform = `scale(${noScale})`;
-  noBtn.style.left = Math.random() * 80 + "%";
-  noBtn.style.top = Math.random() * 80 + "%";
-  noBtn.innerText = ["Nice try 😏","Almost 😂","Try again 😜"][Math.floor(Math.random()*3)];
-}
+    function rainHearts() {
+      for (let i = 0; i < 25; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💕";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+        document.body.appendChild(heart);
 
-yesBtn.onclick = () => {
-  beat.play();
-  music.play();
-  question.classList.add("hidden");
-  love.classList.remove("hidden");
-  startTyping();
-  startHearts();
-};
-
-function startTyping() {
-  const hour = new Date().getHours();
-  let greeting = hour < 6 ? "You should be sleeping 😴" :
-                 hour < 12 ? "Good morning ☀️" :
-                 hour < 18 ? "Good evening 🌸" :
-                 "Late night thoughts 🤍";
-
-  const text = `${greeting}\nYou make my life beautiful ${HER_NAME}`;
-  let i = 0;
-  const interval = setInterval(() => {
-    typing.innerText += text.charAt(i);
-    i++;
-    if (i >= text.length) clearInterval(interval);
-  }, 50);
-}
-
-function startHearts() {
-  setInterval(() => {
-    const h = document.createElement("div");
-    h.className = "heart";
-    h.innerHTML = "💕";
-    h.style.left = Math.random() * 100 + "vw";
-    h.style.animationDuration = (3 + Math.random() * 3) + "s";
-    document.body.appendChild(h);
-    setTimeout(() => h.remove(), 6000);
-  }, 300);
-}
-
-document.addEventListener("click", e => {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.innerHTML = "💖";
-  h.style.left = e.clientX + "px";
-  h.style.top = e.clientY + "px";
-  document.body.appendChild(h);
-  setTimeout(() => h.remove(), 2000);
-});
-
-function reveal() {
-  document.getElementById("secret").classList.remove("hidden");
-}
-</script>
+        setTimeout(() => {
+          heart.remove();
+        }, 5000);
+      }
+    }
+  </script>
 
 </body>
 </html>
