@@ -1,52 +1,109 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>For You ❤️</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: Arial, sans-serif;
-      color: white;
-      text-align: center;
-    }
-    .card {
-      background: rgba(255, 255, 255, 0.2);
-      padding: 30px;
-      border-radius: 20px;
-      max-width: 320px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    }
-    h1 {
-      font-size: 2em;
-    }
-    button {
-      margin-top: 20px;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 30px;
-      background: white;
-      color: #ff4d6d;
-      font-size: 1em;
-      font-weight: bold;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.25);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    z-index: 10;
+  }
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 15px;
+  }
+
+  button {
+    margin: 10px;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .yes {
+    background: white;
+    color: #ff4d6d;
+  }
+
+  .no {
+    background: #ff4d6d;
+    color: white;
+    position: relative;
+  }
+
+  .heart {
+    position: absolute;
+    bottom: -20px;
+    font-size: 24px;
+    animation: float 5s linear forwards;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-120vh); opacity: 0; }
+  }
+</style>
 </head>
+
 <body>
 
-  <div class="card">
-    <h1>Hey ❤️</h1>
-    <p>You make my life special.</p>
-    <button onclick="alert('Will you be my Valentine? 🌹')">
-      Tap me 💖
-    </button>
-  </div>
+<div class="card" id="card">
+  <h1>Will you be my Valentine? 💖</h1>
+  <button class="yes" onclick="yesClicked()">YES ❤️</button>
+  <button class="no" onclick="moveNo()">NO 🙈</button>
+</div>
+
+<script>
+  function yesClicked() {
+    document.getElementById("card").innerHTML = `
+      <h1>My dear Shonnea💕</h1>
+      <p>You just made my heart the happiest 💖</p>
+      <p><b>Happy Valentine’s Day 🌹</b></p>
+    `;
+
+    for (let i = 0; i < 40; i++) {
+      createHeart();
+    }
+  }
+
+  function moveNo() {
+    const btn = document.querySelector(".no");
+    btn.style.position = "absolute";
+    btn.style.left = Math.random() * 80 + "vw";
+    btn.style.top = Math.random() * 80 + "vh";
+  }
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+  }
+</script>
 
 </body>
 </html>
