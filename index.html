@@ -8,43 +8,34 @@
 <style>
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   background: radial-gradient(circle, #7a001f, #3a000f);
   font-family: Arial, sans-serif;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
 }
 
+/* Card */
 .card {
-  background: rgba(0,0,0,0.35);
-  padding: 28px;
-  border-radius: 20px;
+  background: rgba(0,0,0,0.3);
+  padding: 20px;
+  border-radius: 18px;
   text-align: center;
-  width: 90%;
+  width: 92%;
   max-width: 360px;
   box-shadow: 0 0 40px rgba(255,0,100,0.4);
 }
 
-h1,h2 {
-  margin-bottom: 18px;
-}
-
-.note {
-  margin-top: 20px;
-  line-height: 1.9;
-  font-size: 16px;
-}
-
+/* Buttons */
 button {
   border: none;
-  padding: 12px 24px;
-  border-radius: 30px;
-  font-size: 16px;
+  padding: 12px 18px;
+  border-radius: 25px;
+  font-size: 15px;
   cursor: pointer;
-  margin: 12px;
+  margin: 8px;
 }
 
 #yesBtn {
@@ -62,19 +53,22 @@ button {
   display: none;
 }
 
+/* Image optimized for phone */
 img {
   width: 100%;
+  max-height: 420px;
+  object-fit: cover;
   border-radius: 18px;
-  margin: 25px 0;
+  margin-top: 18px;
   opacity: 0;
-  animation: fadeIn 3s forwards;
-  box-shadow: 0 0 30px rgba(255,100,150,0.7);
+  animation: fadeIn 2s forwards;
 }
 
 @keyframes fadeIn {
   to { opacity: 1; }
 }
 
+/* Hearts */
 .heart {
   position: fixed;
   font-size: 20px;
@@ -85,88 +79,68 @@ img {
   from { transform: translateY(-10vh); }
   to { transform: translateY(110vh); }
 }
+
+/* Mobile text scaling */
+h1 { font-size: 26px; }
+h2 { font-size: 20px; }
+p  { font-size: 15px; line-height: 1.5; }
+
+#secret {
+  margin-top: 18px;
+}
 </style>
 </head>
 
 <body>
 
-<!-- QUESTION CARD -->
 <div class="card" id="question">
   <h2>Will you be my Valentine? 🤍</h2>
   <button id="yesBtn">YES 💕</button>
   <button id="noBtn">NO 😂</button>
 </div>
 
-<!-- LOVE CARD -->
 <div class="card hidden" id="love">
   <h1>Yayyyy 💖✨</h1>
 
-  <div class="note" id="typing"></div>
+  <p>
+    You make my life beautiful Shonnea 🤍😽
+  </p>
 
   <img src="her.jpg" alt="Her photo">
 
-  <div class="note hidden" id="secret">
+  <p id="secret" class="hidden">
     There’s something I never told you…
     <br><br>
     <b>You’re my safe place 🤍</b>
-  </div>
+  </p>
 
-  <button onclick="reveal()">Tap more 💌</button>
+  <button onclick="reveal()">Tap me 💌</button>
 </div>
 
-<!-- AUDIO -->
 <audio id="music" src="music.mp3" loop></audio>
-<audio id="beat" src="https://www.soundjay.com/heartbeat/heartbeat-01.mp3"></audio>
 
 <script>
-const HER_NAME = "Shonnea 🤍😽";
-
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const question = document.getElementById("question");
 const love = document.getElementById("love");
-const typing = document.getElementById("typing");
 const music = document.getElementById("music");
-const beat = document.getElementById("beat");
 
-let noScale = 1;
-
-// NO button escape 😂
 noBtn.addEventListener("mouseover", moveNo);
 noBtn.addEventListener("click", moveNo);
 
 function moveNo() {
-  noScale -= 0.1;
-  noBtn.style.transform = `scale(${noScale})`;
-  noBtn.style.left = Math.random() * 80 + "%";
-  noBtn.style.top = Math.random() * 80 + "%";
-  noBtn.innerText = ["Nice try 😏","Almost 😂","Try again 😜"][Math.floor(Math.random()*3)];
+  noBtn.style.left = Math.random() * 70 + "%";
+  noBtn.style.top = Math.random() * 70 + "%";
 }
 
-// YES click
 yesBtn.onclick = () => {
-  beat.play();
   music.play();
   question.classList.add("hidden");
   love.classList.remove("hidden");
-  startTyping();
   startHearts();
 };
 
-// Typing text (clean)
-function startTyping() {
-  const text = `You make my life beautiful,\n\n${HER_NAME}`;
-  let i = 0;
-  typing.innerText = "";
-
-  const interval = setInterval(() => {
-    typing.innerText += text.charAt(i);
-    i++;
-    if (i >= text.length) clearInterval(interval);
-  }, 50);
-}
-
-// Hearts rain
 function startHearts() {
   setInterval(() => {
     const h = document.createElement("div");
@@ -176,10 +150,9 @@ function startHearts() {
     h.style.animationDuration = (3 + Math.random() * 3) + "s";
     document.body.appendChild(h);
     setTimeout(() => h.remove(), 6000);
-  }, 300);
+  }, 350);
 }
 
-// Tap reveal
 function reveal() {
   document.getElementById("secret").classList.remove("hidden");
 }
