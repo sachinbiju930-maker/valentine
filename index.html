@@ -19,7 +19,7 @@ body {
 
 .card {
   background: rgba(0,0,0,0.3);
-  padding: 22px;
+  padding: 20px;
   border-radius: 18px;
   text-align: center;
   width: 92%;
@@ -45,6 +45,7 @@ button {
   background: #444;
   color: white;
   position: absolute;
+  transition: transform 0.2s;
 }
 
 .hidden {
@@ -57,6 +58,12 @@ img {
   object-fit: cover;
   border-radius: 18px;
   margin-top: 18px;
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
 }
 
 .heart {
@@ -72,7 +79,11 @@ img {
 
 h1 { font-size: 26px; }
 h2 { font-size: 20px; }
-p  { font-size: 15px; line-height: 1.6; }
+p  { font-size: 15px; line-height: 1.5; }
+
+#secret {
+  margin-top: 18px;
+}
 </style>
 </head>
 
@@ -91,19 +102,15 @@ p  { font-size: 15px; line-height: 1.6; }
     You make my life beautiful Shonnea 🤍😽
   </p>
 
-  <img src="her.jpg">
+  <img src="her.jpg" alt="Her photo">
 
-  <button onclick="secondSurprise()">Tap me 💌</button>
-</div>
-
-<div class="card hidden" id="final">
-  <h1>💖</h1>
-
-  <p>
-    You make my life beautiful Shonnea 🤍😽
+  <p id="secret" class="hidden">
+    There’s something I never told you…
+    <br><br>
+    <b>You’re my safe place 🤍</b>
   </p>
 
-  <button onclick="endHearts()">Tap me 💌</button>
+  <button onclick="reveal()">Tap me 💌</button>
 </div>
 
 <audio id="music" src="music.mp3" loop></audio>
@@ -113,15 +120,34 @@ const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const question = document.getElementById("question");
 const love = document.getElementById("love");
-const final = document.getElementById("final");
 const music = document.getElementById("music");
+
+let noScale = 1;
+
+let noMessages = [
+  "Think well 😂",
+  "Really? 😏",
+  "No chance 😜",
+  "Try again 💕",
+  "Wrong button 😆",
+  "Be serious 😌"
+];
+
+let msgIndex = 0;
 
 noBtn.addEventListener("mouseover", moveNo);
 noBtn.addEventListener("click", moveNo);
 
 function moveNo() {
+  noScale -= 0.1;
+  if (noScale < 0.4) noScale = 0.4;
+
+  noBtn.style.transform = `scale(${noScale})`;
   noBtn.style.left = Math.random() * 70 + "%";
   noBtn.style.top = Math.random() * 70 + "%";
+
+  noBtn.innerText = noMessages[msgIndex];
+  msgIndex = (msgIndex + 1) % noMessages.length;
 }
 
 yesBtn.onclick = () => {
@@ -130,15 +156,6 @@ yesBtn.onclick = () => {
   love.classList.remove("hidden");
   startHearts();
 };
-
-function secondSurprise() {
-  love.classList.add("hidden");
-  final.classList.remove("hidden");
-}
-
-function endHearts() {
-  startHearts();
-}
 
 function startHearts() {
   setInterval(() => {
@@ -149,7 +166,11 @@ function startHearts() {
     h.style.animationDuration = (3 + Math.random() * 3) + "s";
     document.body.appendChild(h);
     setTimeout(() => h.remove(), 6000);
-  }, 400);
+  }, 350);
+}
+
+function reveal() {
+  document.getElementById("secret").classList.remove("hidden");
 }
 </script>
 
