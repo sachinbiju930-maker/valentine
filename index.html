@@ -17,10 +17,9 @@ body {
   color: white;
 }
 
-/* Card */
 .card {
   background: rgba(0,0,0,0.3);
-  padding: 20px;
+  padding: 22px;
   border-radius: 18px;
   text-align: center;
   width: 92%;
@@ -28,7 +27,6 @@ body {
   box-shadow: 0 0 40px rgba(255,0,100,0.4);
 }
 
-/* Buttons */
 button {
   border: none;
   padding: 12px 18px;
@@ -53,22 +51,14 @@ button {
   display: none;
 }
 
-/* Image optimized for phone */
 img {
   width: 100%;
   max-height: 420px;
   object-fit: cover;
   border-radius: 18px;
   margin-top: 18px;
-  opacity: 0;
-  animation: fadeIn 2s forwards;
 }
 
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
-
-/* Hearts */
 .heart {
   position: fixed;
   font-size: 20px;
@@ -80,14 +70,9 @@ img {
   to { transform: translateY(110vh); }
 }
 
-/* Mobile text scaling */
 h1 { font-size: 26px; }
 h2 { font-size: 20px; }
-p  { font-size: 15px; line-height: 1.5; }
-
-#secret {
-  margin-top: 18px;
-}
+p  { font-size: 15px; line-height: 1.6; }
 </style>
 </head>
 
@@ -106,15 +91,19 @@ p  { font-size: 15px; line-height: 1.5; }
     You make my life beautiful Shonnea 🤍😽
   </p>
 
-  <img src="her.jpg" alt="Her photo">
+  <img src="her.jpg">
 
-  <p id="secret" class="hidden">
-    There’s something I never told you…
-    <br><br>
-    <b>You’re my safe place 🤍</b>
+  <button onclick="secondSurprise()">Tap me 💌</button>
+</div>
+
+<div class="card hidden" id="final">
+  <h1>💖</h1>
+
+  <p>
+    You make my life beautiful Shonnea 🤍😽
   </p>
 
-  <button onclick="reveal()">Tap me 💌</button>
+  <button onclick="endHearts()">Tap me 💌</button>
 </div>
 
 <audio id="music" src="music.mp3" loop></audio>
@@ -124,6 +113,7 @@ const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const question = document.getElementById("question");
 const love = document.getElementById("love");
+const final = document.getElementById("final");
 const music = document.getElementById("music");
 
 noBtn.addEventListener("mouseover", moveNo);
@@ -141,6 +131,15 @@ yesBtn.onclick = () => {
   startHearts();
 };
 
+function secondSurprise() {
+  love.classList.add("hidden");
+  final.classList.remove("hidden");
+}
+
+function endHearts() {
+  startHearts();
+}
+
 function startHearts() {
   setInterval(() => {
     const h = document.createElement("div");
@@ -150,11 +149,7 @@ function startHearts() {
     h.style.animationDuration = (3 + Math.random() * 3) + "s";
     document.body.appendChild(h);
     setTimeout(() => h.remove(), 6000);
-  }, 350);
-}
-
-function reveal() {
-  document.getElementById("secret").classList.remove("hidden");
+  }, 400);
 }
 </script>
 
