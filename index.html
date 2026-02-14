@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For You ❤️</title>
+<title>For You 😂</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle, #7a001f, #3a000f);
+  background: radial-gradient(circle, #2b2b2b, #000);
   font-family: Arial, sans-serif;
   display: flex;
   align-items: center;
@@ -18,13 +18,13 @@ body {
 }
 
 .card {
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.4);
   padding: 20px;
   border-radius: 18px;
   text-align: center;
   width: 92%;
   max-width: 360px;
-  box-shadow: 0 0 40px rgba(255,0,100,0.4);
+  box-shadow: 0 0 30px rgba(255,255,255,0.2);
 }
 
 button {
@@ -37,7 +37,7 @@ button {
 }
 
 #yesBtn {
-  background: #ff4d6d;
+  background: #00c853;
   color: white;
 }
 
@@ -58,17 +58,11 @@ img {
   object-fit: cover;
   border-radius: 18px;
   margin-top: 18px;
-  opacity: 0;
-  animation: fadeIn 2s forwards;
 }
 
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
-
-.heart {
+.poop {
   position: fixed;
-  font-size: 20px;
+  font-size: 22px;
   animation: fall linear infinite;
 }
 
@@ -76,44 +70,32 @@ img {
   from { transform: translateY(-10vh); }
   to { transform: translateY(110vh); }
 }
-
-h1 { font-size: 26px; }
-h2 { font-size: 20px; }
-p  { font-size: 15px; line-height: 1.5; }
-
-#secret {
-  margin-top: 18px;
-}
 </style>
 </head>
 
 <body>
 
 <div class="card" id="question">
-  <h2>Will you be my Valentine? 🤍</h2>
-  <button id="yesBtn">YES 💕</button>
-  <button id="noBtn">NO 😂</button>
+  <h2>Nee valentine entha sunimwollea😂🐕</h2>
+  <button id="yesBtn">YES 😂</button>
+  <button id="noBtn">NO 😏</button>
 </div>
 
 <div class="card hidden" id="love">
-  <h1>Yayyyy 💖✨</h1>
+  <h1>😂😂😂</h1>
 
-  <p>
-    You make my life beautiful Shonnea 🤍😽
-  </p>
-
-  <img src="her.jpg" alt="Her photo">
+  <img src="Her1.jpg">
 
   <p id="secret" class="hidden">
-    There’s something I never told you…
+    You are really amazing sunimwollea❤️‍🔥🐕  
     <br><br>
-    <b>You’re my safe place 🤍</b>
+    but arodum parayanda😂🫂
   </p>
 
-  <button onclick="reveal()">Tap me 💌</button>
+  <button onclick="reveal()">Tap me 😂</button>
 </div>
 
-<audio id="music" src="music.mp3" loop></audio>
+<audio id="music" src="Fah.mp3" loop></audio>
 
 <script>
 const yesBtn = document.getElementById("yesBtn");
@@ -128,9 +110,8 @@ let noMessages = [
   "Think well 😂",
   "Really? 😏",
   "No chance 😜",
-  "Try again 💕",
-  "Wrong button 😆",
-  "Be serious 😌"
+  "Try again 💀",
+  "Wrong button 😂"
 ];
 
 let msgIndex = 0;
@@ -154,19 +135,19 @@ yesBtn.onclick = () => {
   music.play();
   question.classList.add("hidden");
   love.classList.remove("hidden");
-  startHearts();
+  startPoop();
 };
 
-function startHearts() {
+function startPoop() {
   setInterval(() => {
-    const h = document.createElement("div");
-    h.className = "heart";
-    h.innerHTML = "💕";
-    h.style.left = Math.random() * 100 + "vw";
-    h.style.animationDuration = (3 + Math.random() * 3) + "s";
-    document.body.appendChild(h);
-    setTimeout(() => h.remove(), 6000);
-  }, 350);
+    const p = document.createElement("div");
+    p.className = "poop";
+    p.innerHTML = "💩";
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.animationDuration = (3 + Math.random() * 3) + "s";
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 6000);
+  }, 300);
 }
 
 function reveal() {
