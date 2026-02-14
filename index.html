@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For You 😂</title>
+<title>Troll Surprise 😂</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -24,7 +24,6 @@ body {
   text-align: center;
   width: 92%;
   max-width: 360px;
-  box-shadow: 0 0 30px rgba(255,255,255,0.2);
 }
 
 button {
@@ -36,21 +35,14 @@ button {
   margin: 8px;
 }
 
-#yesBtn {
-  background: #00c853;
-  color: white;
-}
-
+#yesBtn { background: #00c853; color: white; }
 #noBtn {
   background: #444;
   color: white;
   position: absolute;
-  transition: transform 0.2s;
 }
 
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 
 img {
   width: 100%;
@@ -75,14 +67,20 @@ img {
 
 <body>
 
+<!-- Screen 1 -->
 <div class="card" id="question">
-  <h2>Nee valentine entha sunimwollea😂🐕</h2>
+  <h2>Will you be my Valentine? 🤍</h2>
   <button id="yesBtn">YES 😂</button>
   <button id="noBtn">NO 😏</button>
 </div>
 
+<!-- Screen 2 -->
 <div class="card hidden" id="love">
   <h1>😂😂😂</h1>
+
+  <p>
+    Nee athum entea valentine entha sunimwollea😂🐕
+  </p>
 
   <img src="Her1.jpg">
 
@@ -110,8 +108,7 @@ let noMessages = [
   "Think well 😂",
   "Really? 😏",
   "No chance 😜",
-  "Try again 💀",
-  "Wrong button 😂"
+  "Try again 💀"
 ];
 
 let msgIndex = 0;
